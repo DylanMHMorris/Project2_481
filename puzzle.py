@@ -9,18 +9,37 @@ BLieosaurus = Symbol("B is a Lieosaurus")
 CTruthoraptor = Symbol("C is a Truthoraptor")
 CLieosaurus = Symbol("C is a Lieosaurus")
 
-# Puzzle 0
-# A says "I am both a Truthoraptor and a Lieosaurus."
-knowledge0 = And(
-    # TODO
+
+# The puzzle states that a dinosaur can't be both
+# So use this logic as a base for each puzzle
+UNIVERSAL_LOGIC = And(
+    Or(ATruthoraptor, ALieosaurus),
+    Not(And(ATruthoraptor, ALieosaurus)),
+    Or(BTruthoraptor, BLieosaurus),
+    Not(And(BTruthoraptor, BLieosaurus)),
+    Or(CTruthoraptor, CLieosaurus)
 )
 
-# Puzzle 1
+# Puzzle 0
+# A says "I am both a Truthoraptor and a Lieosaurus."
+
+AStatement0 = And(ATruthoraptor, ALieosaurus)
+knowledge0 = And(
+    UNIVERSAL_LOGIC,
+    Implication(ATruthoraptor, AStatement0),
+    Implication(ALieosaurus, Not(AStatement0)),
+)
+
+# Puzzle 1And(ATruthoraptor, ALieosaurus)
 # A says "We are both Lieosauruss."
 # B says nothing.
+AStatement1 = And(ALieosaurus, BLieosaurus)
 knowledge1 = And(
-    # TODO
+    UNIVERSAL_LOGIC,
+    Implication(ATruthoraptor, AStatement1),
+    Implication(ALieosaurus, Not(AStatement1)),
 )
+
 
 # Puzzle 2
 # A says "We are the same kind."
@@ -34,18 +53,36 @@ knowledge2 = And(
 # B says "A said 'I am a Lieosaurus'."
 # B says "C is a Lieosaurus."
 # C says "A is a Truthoraptor."
+AStatement3 = Or(ATruthoraptor, ALieosaurus)
+BStatement3 = CLieosaurus
+CStatement3 = ATruthoraptor
+
 knowledge3 = And(
-    # TODO
+    UNIVERSAL_LOGIC,
+    Not(And(CTruthoraptor, CLieosaurus)),
+    Implication(ATruthoraptor, AStatement3),
+    Implication(ALieosaurus, Not(AStatement3)),
+    Implication(BTruthoraptor, BStatement3),
+    Implication(BLieosaurus, Not(BStatement3)),
+    Implication(CTruthoraptor, CStatement3),
+    Implication(CLieosaurus, Not(CStatement3)),
 )
 
 
 def main():
-    symbols = [ATruthoraptor, ALieosaurus, BTruthoraptor, BLieosaurus, CTruthoraptor, CLieosaurus]
+    symbols = [
+        ATruthoraptor,
+        ALieosaurus,
+        BTruthoraptor,
+        BLieosaurus,
+        CTruthoraptor,
+        CLieosaurus,
+    ]
     puzzles = [
         ("Puzzle 0", knowledge0),
         ("Puzzle 1", knowledge1),
         ("Puzzle 2", knowledge2),
-        ("Puzzle 3", knowledge3)
+        ("Puzzle 3", knowledge3),
     ]
     for puzzle, knowledge in puzzles:
         print(puzzle)
