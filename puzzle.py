@@ -30,7 +30,7 @@ knowledge0 = And(
     Implication(ALieosaurus, Not(AStatement0)),
 )
 
-# Puzzle 1 And(ATruthoraptor, ALieosaurus)
+# Puzzle 1
 # A says "We are both Lieosauruss."
 # B says nothing.
 AStatement1 = And(ALieosaurus, BLieosaurus)
@@ -44,14 +44,15 @@ knowledge1 = And(
 # Puzzle 2
 # A says "We are the same kind."
 # B says "We are of different kinds."
+AStatement2 = Or(And(ATruthoraptor, BTruthoraptor), And(ALieosaurus, BLieosaurus))
+BStatement2 = Or(And(ATruthoraptor, BLieosaurus), And(ALieosaurus, BTruthoraptor))
+
 knowledge2 = And(
     UNIVERSAL_LOGIC,
-    And(Or(ATruthoraptor, ALieosaurus), Not(And(ATruthoraptor, ALieosaurus))),
-    And(Or(BTruthoraptor, BLieosaurus), Not(And(BTruthoraptor, BLieosaurus))),
-    Implication(ATruthoraptor, Or(And(ATruthoraptor, BTruthoraptor), And(ALieosaurus, BLieosaurus))),
-    Implication(ALieosaurus, Not(Or(And(ATruthoraptor, BTruthoraptor), And(ALieosaurus, BLieosaurus)))),
-    Implication(BTruthoraptor, Or(And(ATruthoraptor, BLieosaurus), And(ALieosaurus, BTruthoraptor))),
-    Implication(BLieosaurus, Not(Or(And(ATruthoraptor, BLieosaurus), And(ALieosaurus, BTruthoraptor)))))
+    Implication(ATruthoraptor, AStatement2),
+    Implication(ALieosaurus, Not(AStatement2)),
+    Implication(BTruthoraptor, Or(BStatement2)),
+    Implication(BLieosaurus, Not(BStatement2)))
 
 # Puzzle 3
 # A says either "I am a Truthoraptor." or "I am a Lieosaurus.", but you don't know which.
