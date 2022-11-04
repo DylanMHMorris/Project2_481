@@ -30,7 +30,7 @@ knowledge0 = And(
     Implication(ALieosaurus, Not(AStatement0)),
 )
 
-# Puzzle 1And(ATruthoraptor, ALieosaurus)
+# Puzzle 1 And(ATruthoraptor, ALieosaurus)
 # A says "We are both Lieosauruss."
 # B says nothing.
 AStatement1 = And(ALieosaurus, BLieosaurus)
@@ -45,8 +45,13 @@ knowledge1 = And(
 # A says "We are the same kind."
 # B says "We are of different kinds."
 knowledge2 = And(
-    # TODO
-)
+    UNIVERSAL_LOGIC,
+    And(Or(ATruthoraptor, ALieosaurus), Not(And(ATruthoraptor, ALieosaurus))),
+    And(Or(BTruthoraptor, BLieosaurus), Not(And(BTruthoraptor, BLieosaurus))),
+    Implication(ATruthoraptor, Or(And(ATruthoraptor, BTruthoraptor), And(ALieosaurus, BLieosaurus))),
+    Implication(ALieosaurus, Not(Or(And(ATruthoraptor, BTruthoraptor), And(ALieosaurus, BLieosaurus)))),
+    Implication(BTruthoraptor, Or(And(ATruthoraptor, BLieosaurus), And(ALieosaurus, BTruthoraptor))),
+    Implication(BLieosaurus, Not(Or(And(ATruthoraptor, BLieosaurus), And(ALieosaurus, BTruthoraptor)))))
 
 # Puzzle 3
 # A says either "I am a Truthoraptor." or "I am a Lieosaurus.", but you don't know which.
