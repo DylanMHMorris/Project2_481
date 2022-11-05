@@ -1,5 +1,7 @@
 from logic import *
 
+# Dylan Morris, Michael Morikawa, Kevin La, Dylan Tran
+
 ATruthoraptor = Symbol("A is a Truthoraptor")
 ALieosaurus = Symbol("A is a Lieosaurus")
 
